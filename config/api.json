@@ -1,0 +1,232 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "1.0.0",
+    "title" : "Shuffle Card"
+  },
+  "paths" : {
+    "/deck" : {
+      "get" : {
+        "operationId" : "get_deck",
+        "parameters" : [ {
+          "name" : "tags",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "multi"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Deck response",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Deck"
+              }
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        },
+		"deprecated": false
+      },
+      "post" : {
+        "description" : "Creates a new Deck",
+        "operationId" : "addDeck",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "deck",
+          "description" : "Deck",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/newDeck"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "card response",
+            "schema" : {
+              "$ref" : "#/definitions/Deck"
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "description" : "deletes a Deck based on the sessionId",
+        "operationId" : "delete_deck",
+        "parameters" : [ {
+          "name" : "tags",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "multi"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Deck response",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Deck"
+              }
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        },
+		"deprecated": false
+      }
+    },
+    "/deck/pop" : {
+      "get" : {
+        "operationId" : "deck_pop",
+        "parameters" : [ {
+          "name" : "tags",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "multi"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Deck response",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Deck"
+              }
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        },
+		"deprecated": false
+      }
+    },
+    "/deck/shuffle" : {
+      "get" : {
+        "operationId" : "deck_shuffle",
+        "parameters" : [ {
+          "name" : "tags",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "multi"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Deck response",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Deck"
+              }
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        },
+		"deprecated": false
+      }
+  	}
+  },
+  "definitions" : {
+    "Deck" : {
+      "allOf" : [ {
+        "$ref" : "#/definitions/newDeck"
+      }, {
+        "required" : [ "id" ],
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
+      } ]
+    },
+    "newDeck" : {
+      "required" : [ "deck" ],
+      "properties" : {
+        "deck" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "example" : {
+        "deck" : [ "123", "123" ]
+      }
+    },
+    "Error" : {
+      "required" : [ "code", "message" ],
+      "properties" : {
+        "code" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "message" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}
