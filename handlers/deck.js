@@ -12,10 +12,12 @@ module.exports = {
     	 console.log(req.sessionID);
     	 return new Promise(resolve => client.hgetall(req.sessionID, function (err, replies) {
              if(replies){
+            	 console.log(typeof replies.dealt == "string");
+            	 console.log(typeof replies.deck == "string")
                  replies.dealt = ((typeof replies.dealt == "string") ? JSON.parse(replies.dealt) : replies.dealt);
                  replies.deck = ((typeof replies.deck == "string") ? JSON.parse(replies.deck) : replies.deck);
-                 var reply = ((replies.dealt.length > 0 ) ? replies : replies.deck);
-                 res.json({"deck":reply});
+                 var reply = ((replies.dealt.length > 0 ) ? replies : {"deck":replies.deck});
+                 res.json(reply);
              }
              else{
                  res.json({"deck":[]});
