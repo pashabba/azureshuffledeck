@@ -15,7 +15,7 @@ module.exports = {
                  replies.dealt = ((typeof replies.dealt == "string") ? JSON.parse(replies.dealt) : replies.dealt);
                  replies.deck = ((typeof replies.deck == "string") ? JSON.parse(replies.deck) : replies.deck);
                  var reply = ((replies.dealt.length > 0 ) ? replies : replies.deck);
-                 res.json(reply);
+                 res.json({"deck":reply});
              }
              else{
                  res.json({"deck":[]});
