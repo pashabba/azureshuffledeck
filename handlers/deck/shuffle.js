@@ -21,11 +21,11 @@ module.exports = {
                 	 temp = replies.deck[i]
                 	 replies.deck[i] = replies.deck[j]
                 	 replies.deck[j] = temp
+	                 res.json(replies)
             	 }
                  return new Promise(function(resolve, reject){
 		             client.hmset(req.sessionID, "deck", JSON.stringify(replies.deck));
 		             client.hmset([req.sessionID, "dealt", JSON.stringify(replies.dealt)]);
-	                 res.json(replies)
                  });
              }
              else{
