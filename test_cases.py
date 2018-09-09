@@ -113,6 +113,33 @@ class TestStringMethods(unittest.TestCase):
         self.assertTrue(len(s_pop['dealt']) == len(s_get['dealt']) == 4,  msg="should not throw an error")
         self.assertTrue(len(s_pop['deck']) == len(s_get['deck']) == 0)
         
+    def test_delete(self):
+        s = requests.Session()
+        s_json = [1,2,3,4]
+        s.post("http://shufflecards.azurewebsites.net/deck", json=s_json)
+        self.assertTrue(s.get("http://shufflecards.azurewebsites.net/deck").text == '{"deck":[1,2,3,4]}')
+        self.assertTrue(s.delete("http://shufflecards.azurewebsites.net/deck").text == '{"deck":{},"dealt":[]}')
+        self.assertTrue(s.get("http://shufflecards.azurewebsites.net/deck").text == '{"deck":[]}')
+        
+    def test_two_session_delete(self):
+        # first session data deleted, second one still exists
+        s = requests.Session()
+        k = requests.Session()
+        s_json = [1,2,3,4]
+        k_json = [5,6,7,8]
+        
+        s.post("http://shufflecards.azurewebsites.net/deck", json=s_json)
+        k.post("http://shufflecards.azurewebsites.net/deck", json=k_json)
+
+        self.assertTrue(s.get("http://shufflecards.azurewebsites.net/deck").text == '{"deck":[1,2,3,4]}')
+        self.assertTrue(s.delete("http://shufflecards.azurewebsites.net/deck").text == '{"deck":{},"dealt":[]}')
+        self.assertTrue(s.get("http://shufflecards.azurewebsites.net/deck").text == '{"deck":[]}')
+        
+        self.assertTrue(k.get("http://shufflecards.azurewebsites.net/deck").text == '{"deck":[5,6,7,8]}')
+
+        
+        
+        
  
  
  
