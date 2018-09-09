@@ -30,7 +30,7 @@ module.exports = {
              if(req.body == []){
                  res.json({"deck":[], "dealt":[]});
              }else{
-            	 res.json({"deck": req.body, "dealt":[]});
+            	 res.json({"deck": req.body});
              }
          });
 
