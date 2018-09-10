@@ -20,7 +20,7 @@ module.exports = {
                  replies.dealt.push(replies.deck[replies.deck.length-1]);
 
                  var pop = replies.deck[replies.deck.length-1]
-                 res.json({"last card popped":[]});
+                 res.json({"last card popped":replies.deck[replies.deck.length-1]});
                  replies.deck.pop();
                  return new Promise(function(resolve, reject){
 		             client.hmset(req.sessionID, "deck", JSON.stringify(replies.deck));
