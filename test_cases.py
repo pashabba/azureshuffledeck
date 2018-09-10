@@ -139,7 +139,7 @@ class TestStringMethods(unittest.TestCase):
         k.post("http://shuffledeck.azurewebsites.net/deck", json=k_json)
 
         self.assertTrue(s.get("http://shuffledeck.azurewebsites.net/deck").text == '{"deck":[1,2,3,4]}')
-        self.assertTrue(s.delete("http://shuffledeck.azurewebsites.net/deck").text == '{"deck":{},"dealt":[]}')
+        self.assertTrue(s.delete("http://shuffledeck.azurewebsites.net/deck").text == '{"deck":[],"dealt":[]}')
         self.assertTrue(s.get("http://shuffledeck.azurewebsites.net/deck").text == '{"deck":[]}')
         
         self.assertTrue(k.get("http://shuffledeck.azurewebsites.net/deck").text == '{"deck":[5,6,7,8]}')
