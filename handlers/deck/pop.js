@@ -14,19 +14,21 @@ module.exports = {
                  replies.dealt = ((typeof replies.dealt == "string") ? JSON.parse(replies.dealt) : replies.dealt);
                  replies.deck = ((typeof replies.deck == "string") ? JSON.parse(replies.deck) : replies.deck);
                  if(replies.deck == [] && replies.dealt == [] ){
-                	 res.json({"deck":[], "dealt":[]});
+                	 res.json({"last card popped":[]});
                      return;
                  }
                  replies.dealt.push(replies.deck[replies.deck.length-1]);
+
+                 var pop = replies.deck[replies.deck.length-1]
+                 res.json({"last card popped":[]});
                  replies.deck.pop();
                  return new Promise(function(resolve, reject){
 		             client.hmset(req.sessionID, "deck", JSON.stringify(replies.deck));
 		             client.hmset([req.sessionID, "dealt", JSON.stringify(replies.dealt)]);
-	                 res.json(replies)
                  });
              }
              else{
-                 res.json({"deck":[], "dealt":[]});
+                res.json({"last card popped":[]});
              }
     	 }));
      }
