@@ -41,11 +41,7 @@ module.exports = {
     	 return new Promise(function(resolve, reject){
              client.hmset(req.sessionID, "deck", "[]");
              client.hmset([req.sessionID, "dealt", "[]"]);
-             if(req.body == []){
-                 res.json({"deck":[], "dealt":[]});
-             }else{
-            	 res.json({"deck": req.body, "dealt":[]});
-             }
+             res.json({"deck":[], "dealt":[]});
          });
      }
  };
